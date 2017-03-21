@@ -2,20 +2,27 @@ package com.spikerex.venture;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spikerex.venture.graphics.Screen;
+
 public class Main extends Canvas implements Runnable {
 	public final static int WIDTH = 300;
-	public final static int HEIGHT = WIDTH / 16 * 10;
+	public final static int HEIGHT = WIDTH / 16 * 9;
 	public final static String TITLE = "Venture";
 	public final static int SCALE = 3;
+	public final static Random rand = new Random();
 
 	private Thread thread;
 	private boolean running = false;
 	private boolean paused = false;
+	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private JFrame frame;
@@ -41,6 +48,8 @@ public class Main extends Canvas implements Runnable {
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);
+
+		screen = new Screen(WIDTH, HEIGHT);
 	}
 
 	public synchronized void start() {
@@ -65,7 +74,6 @@ public class Main extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		long lastTime = System.nanoTime();
 		long lastTimer = System.currentTimeMillis();
 		double ns = 1000000000.0 / 60.0;
@@ -105,7 +113,23 @@ public class Main extends Canvas implements Runnable {
 	}
 
 	public void render() {
-
+		BufferStrategy bs = getBufferStrategy();
+		if (bs == null) {
+			createBufferStrategy(3);
+			return;
+		}
+		Graphics g = bs.getDrawGraphics();
+		screen.graphics(g);
+		screen.clear();
+		for (int i = 0; i < WIDTH * HEIGHT; i++) {
+			screen.pixels[i] = rand.nextInt(0xffffff);
+		}
+		for (int i = 0; i < WIDTH * HEIGHT; i++) {
+			pixels[i] = screen.pixels[i];
+		}
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.dispose();
+		bs.show();
 	}
 
 }
