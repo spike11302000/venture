@@ -11,6 +11,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import com.spikerex.venture.graphics.Screen;
+import com.spikerex.venture.input.Keyboard;
 
 public class Main extends Canvas implements Runnable {
 	public final static int WIDTH = 300;
@@ -21,12 +22,11 @@ public class Main extends Canvas implements Runnable {
 
 	private Thread thread;
 	private boolean running = false;
-	private boolean paused = false;
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private JFrame frame;
-	private int time = 0;
+	private Keyboard key;
 
 	public static void main(String[] args) {
 		Main game = new Main();
@@ -50,6 +50,8 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(size);
 
 		screen = new Screen(WIDTH, HEIGHT);
+		key = new Keyboard();
+		addKeyListener(key);
 	}
 
 	public synchronized void start() {
@@ -87,8 +89,7 @@ public class Main extends Canvas implements Runnable {
 			lastTime = now;
 
 			if (delta >= 1) {
-				if (!paused)
-					update(delta);
+				update();
 				updates++;
 				delta--;
 			}
@@ -107,12 +108,24 @@ public class Main extends Canvas implements Runnable {
 		}
 
 	}
-	int x=0,y=0;
+
+	int x = 0, y = 0;
 	int tick = 0;
-	public void update(double delta) {
+
+	public void update() {
 		tick++;
-		x=(int) ((double)Math.sin(tick/500.0)*500);
-		y=(int) ((double)Math.cos(tick/500.0)*500);;
+		//x = (int) ((double) Math.sin(tick / 500.0) * 500);
+		//y = (int) ((double) Math.cos(tick / 500.0) * 500);
+		key.update();
+		if(key.up)
+			y--;
+		if(key.down)
+			y++;
+		if(key.left)
+			x--;
+		if(key.right)
+			x++;
+		
 	}
 
 	public void render() {
@@ -123,7 +136,7 @@ public class Main extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		screen.clear();
-		screen.render(x,y);
+		screen.render(x, y);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}
