@@ -88,7 +88,7 @@ public class Main extends Canvas implements Runnable {
 
 			if (delta >= 1) {
 				if (!paused)
-					update();
+					update(delta);
 				updates++;
 				delta--;
 			}
@@ -107,9 +107,12 @@ public class Main extends Canvas implements Runnable {
 		}
 
 	}
-
-	public void update() {
-
+	int x=0,y=0;
+	int tick = 0;
+	public void update(double delta) {
+		tick++;
+		x=(int) ((double)Math.sin(tick/500.0)*500);
+		y=(int) ((double)Math.cos(tick/500.0)*500);;
 	}
 
 	public void render() {
@@ -119,11 +122,8 @@ public class Main extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-		screen.graphics(g);
 		screen.clear();
-		for (int i = 0; i < WIDTH * HEIGHT; i++) {
-			screen.pixels[i] = rand.nextInt(0xffffff);
-		}
+		screen.render(x,y);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}

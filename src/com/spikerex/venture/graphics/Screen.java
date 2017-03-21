@@ -1,26 +1,44 @@
 package com.spikerex.venture.graphics;
 
 import java.awt.Graphics;
+import java.util.Random;
+
+import com.spikerex.venture.Main;
 
 public class Screen {
-	public int width, height;
+	private int width, height;
 	public int[] pixels;
-	private Graphics g;
+	public final int MAP_SIZE = 4096;
+	public final int MAP_SIZE_MASK = MAP_SIZE - 1;
+	public int[] tiles = new int[MAP_SIZE * MAP_SIZE];
+
+	private Random random = new Random();
 
 	public Screen(int width, int height) {
 		this.width = width;
 		this.height = height;
 		pixels = new int[width * height];
-
-	}
-
-	public void graphics(Graphics g) {
-		this.g = g;
+		for (int i = 0; i < tiles.length; i++) {
+			tiles[i] = random.nextInt(0xFFFFFF);
+		}
 	}
 
 	public void clear() {
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = 0;
+		}
+	}
+
+	public void render(int xOffset, int yOffset) {
+		for (int y = 0; y < height; y++) {
+			int yy = y + yOffset;
+			// if (yy < 0 || yy >= height) break;
+			for (int x = 0; x < width; x++) {
+				int xx = x + xOffset;
+				// if (xx < 0 || xx >= width) break;
+				int tileIndex = ((xx >> 4) & MAP_SIZE_MASK) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE;
+				pixels[x + y * width] = tiles[tileIndex];
+			}
 		}
 	}
 }
