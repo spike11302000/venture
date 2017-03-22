@@ -10,6 +10,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
 import com.spikerex.venture.level.Level;
@@ -30,6 +31,7 @@ public class Main extends Canvas implements Runnable {
 	private JFrame frame;
 	private Keyboard key;
 	private Level level;
+	private Player player;
 
 	public static void main(String[] args) {
 		Main game = new Main();
@@ -55,6 +57,7 @@ public class Main extends Canvas implements Runnable {
 		screen = new Screen(WIDTH, HEIGHT);
 		level = new RandomLevel(64, 64);
 		key = new Keyboard();
+		player = new Player(key);
 		addKeyListener(key);
 	}
 
@@ -113,22 +116,13 @@ public class Main extends Canvas implements Runnable {
 
 	}
 
-	int x = 0, y = 0;
-	int tick = 0;
 
+	int tick = 0;
 	public void update() {
 		tick++;
-		//x = (int) ((double) Math.sin(tick / 500.0) * 500);
-		//y = (int) ((double) Math.cos(tick / 500.0) * 500);
 		key.update();
-		if(key.up)
-			y--;
-		if(key.down)
-			y++;
-		if(key.left)
-			x--;
-		if(key.right)
-			x++;
+		player.update();
+
 		
 	}
 
@@ -140,7 +134,7 @@ public class Main extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		screen.clear();
-		level.render(x, y, screen);
+		level.render(player.x, player.y, screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}
