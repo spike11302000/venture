@@ -10,6 +10,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spikerex.venture.entity.testEntity;
 import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
@@ -62,6 +63,10 @@ public class Main extends Canvas implements Runnable {
 		level = new RandomLevel(64, 64);
 		key = new Keyboard();
 		player = new Player(key);
+
+		level.add(new testEntity());
+
+		System.out.println(level.entities.toString());
 		addKeyListener(key);
 	}
 
@@ -111,7 +116,7 @@ public class Main extends Canvas implements Runnable {
 			while (System.currentTimeMillis() - lastTimer > 1000) {
 				lastTimer += 1000;
 				System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
+				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps | "+level.entities.size()+" Entities");
 				// level.updateTimer();
 				frames = 0;
 				updates = 0;
@@ -126,7 +131,9 @@ public class Main extends Canvas implements Runnable {
 		tick++;
 		key.update();
 		player.update();
-
+		level.update();
+		level.add(new testEntity());
+		
 	}
 
 	public void render() {
@@ -137,8 +144,8 @@ public class Main extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		screen.clear();
-		int xScroll = player.x-screen.width/2;
-		int yScroll = player.y-screen.height/2;
+		int xScroll = player.x - screen.width / 2;
+		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {

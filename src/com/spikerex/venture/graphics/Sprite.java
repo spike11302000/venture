@@ -17,6 +17,10 @@ public class Sprite {
 	public static Sprite player2 = new Sprite(16,2,0,SpriteSheet.player);
 	public static Sprite player3 = new Sprite(16,3,0,SpriteSheet.player);
 	
+	//Mobs
+	
+	//Entity
+	public static Sprite testEntity = new Sprite(16,0xffff00);
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.SIZE = size;
 		pixels = new int[SIZE * SIZE];
