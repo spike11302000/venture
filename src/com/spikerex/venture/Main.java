@@ -116,14 +116,13 @@ public class Main extends Canvas implements Runnable {
 
 	}
 
-
 	int tick = 0;
+
 	public void update() {
 		tick++;
 		key.update();
 		player.update();
 
-		
 	}
 
 	public void render() {
@@ -134,7 +133,10 @@ public class Main extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		screen.clear();
-		level.render(player.x, player.y, screen);
+		int xScroll = player.x-screen.width/2;
+		int yScroll = player.y-screen.height/2;
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}
