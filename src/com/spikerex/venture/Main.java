@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
+import com.spikerex.venture.level.Level;
+import com.spikerex.venture.level.RandomLevel;
 
 public class Main extends Canvas implements Runnable {
 	public final static int WIDTH = 300;
@@ -27,6 +29,7 @@ public class Main extends Canvas implements Runnable {
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private JFrame frame;
 	private Keyboard key;
+	private Level level;
 
 	public static void main(String[] args) {
 		Main game = new Main();
@@ -50,6 +53,7 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(size);
 
 		screen = new Screen(WIDTH, HEIGHT);
+		level = new RandomLevel(64, 64);
 		key = new Keyboard();
 		addKeyListener(key);
 	}
@@ -136,7 +140,7 @@ public class Main extends Canvas implements Runnable {
 		}
 		Graphics g = bs.getDrawGraphics();
 		screen.clear();
-		screen.render(x, y);
+		level.render(x, y, screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}
