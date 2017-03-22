@@ -1,6 +1,5 @@
 package com.spikerex.venture.level.tile;
 
-import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
 
 public class voidTile extends Tile {

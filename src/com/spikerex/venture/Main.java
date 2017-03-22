@@ -17,6 +17,10 @@ import com.spikerex.venture.level.Level;
 import com.spikerex.venture.level.RandomLevel;
 
 public class Main extends Canvas implements Runnable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3022930815135072191L;
 	public final static int WIDTH = 300;
 	public final static int HEIGHT = WIDTH / 16 * 9;
 	public final static String TITLE = "Venture";
@@ -37,7 +41,7 @@ public class Main extends Canvas implements Runnable {
 		Main game = new Main();
 		game.frame = new JFrame();
 		game.frame.setResizable(false);
-		game.frame.setTitle(game.TITLE);
+		game.frame.setTitle(Main.TITLE);
 		game.frame.add(game);
 		game.frame.pack();
 		game.frame.setLocationRelativeTo(null);
