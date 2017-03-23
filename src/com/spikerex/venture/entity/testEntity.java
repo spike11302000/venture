@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
-import com.spikerex.venture.level.tile.Tile;
 
 public class testEntity extends Entity {
 	private Random random = new Random();

@@ -16,7 +16,8 @@ public class Tile {
 	}
 	public void render(int x,int y,Screen screen){
 		screen.renderTiles(x<<4, y<<4, this);
-		
+	}
+	public void renderLast(int x,int y,Screen screen){
 	}
 	public boolean solid(){
 		return false;

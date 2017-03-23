@@ -4,7 +4,6 @@ import java.util.Random;
 
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.level.Level;
-import com.spikerex.venture.level.tile.Tile;
 
 public abstract class Entity {
 	public int x,y;

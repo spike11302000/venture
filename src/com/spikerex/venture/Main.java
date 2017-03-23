@@ -10,7 +10,6 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
-import com.spikerex.venture.entity.testEntity;
 import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
@@ -144,6 +143,8 @@ public class Main extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
+		level.renderEntities(screen);
+		level.renderLast(xScroll, yScroll, screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
 		}

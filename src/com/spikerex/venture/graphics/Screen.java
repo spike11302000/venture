@@ -31,6 +31,7 @@ public class Screen {
 					break;
 				if (xa < 0)
 					xa = 0;
+				if(tile.sprite.pixels[x + y * tile.sprite.SIZE] != 0xffff00ff)
 				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
 			}
 		}
@@ -47,6 +48,7 @@ public class Screen {
 					break;
 				if (xa < 0)
 					xa = 0;
+				if(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff)
 				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
