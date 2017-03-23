@@ -10,6 +10,12 @@ public class Sprite {
 	//Tiles
 	public static Sprite voidSprite = new Sprite(16,0x000000);
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
+	public static Sprite rock = new Sprite(16,1,0,SpriteSheet.tiles);
+	public static Sprite redFlower = new Sprite(16,2,0,SpriteSheet.tiles);
+	//Tree
+	public static Sprite treeTop = new Sprite(16,0,1,SpriteSheet.tiles);
+	public static Sprite treeBottom = new Sprite(16,0,2,SpriteSheet.tiles);
+	
 	
 	//Player
 	public static Sprite player_f = new Sprite(16,0,0,SpriteSheet.player);

@@ -64,6 +64,8 @@ public class Level {
 		switch (tiles[x + y * width]) {
 		case 0:
 			return Tile.grass;
+		case 1:
+			return Tile.rock;
 		}
 		return Tile.voidTile;
 	}

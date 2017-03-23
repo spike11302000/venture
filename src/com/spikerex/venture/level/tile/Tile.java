@@ -7,8 +7,9 @@ public class Tile {
 	public int x, y;
 	public Sprite sprite;
 	
-	public static Tile grass = new grassTile(Sprite.grass);
 	public static Tile voidTile = new voidTile(Sprite.voidSprite);
+	public static Tile grass = new grassTile(Sprite.grass);
+	public static Tile rock = new rockTile(Sprite.rock);
 	
 	public Tile(Sprite sprite){
 		this.sprite = sprite;
