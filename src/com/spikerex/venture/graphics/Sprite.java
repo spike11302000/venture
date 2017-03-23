@@ -12,10 +12,25 @@ public class Sprite {
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 	
 	//Player
-	public static Sprite player0 = new Sprite(16,0,0,SpriteSheet.player);
-	public static Sprite player1 = new Sprite(16,1,0,SpriteSheet.player);
-	public static Sprite player2 = new Sprite(16,2,0,SpriteSheet.player);
-	public static Sprite player3 = new Sprite(16,3,0,SpriteSheet.player);
+	public static Sprite player_f = new Sprite(16,0,0,SpriteSheet.player);
+	public static Sprite player_r = new Sprite(16,1,0,SpriteSheet.player);
+	public static Sprite player_b = new Sprite(16,2,0,SpriteSheet.player);
+	public static Sprite player_l = new Sprite(16,3,0,SpriteSheet.player);
+	
+	public static Sprite player_f1 = new Sprite(16,0,1,SpriteSheet.player);
+	public static Sprite player_r1 = new Sprite(16,1,1,SpriteSheet.player);
+	public static Sprite player_b1 = new Sprite(16,2,1,SpriteSheet.player);
+	public static Sprite player_l1 = new Sprite(16,3,1,SpriteSheet.player);
+	
+	public static Sprite player_f2 = new Sprite(16,0,2,SpriteSheet.player);
+	public static Sprite player_r2 = new Sprite(16,1,2,SpriteSheet.player);
+	public static Sprite player_b2 = new Sprite(16,2,2,SpriteSheet.player);
+	public static Sprite player_l2 = new Sprite(16,3,2,SpriteSheet.player);
+	
+	public static Sprite player_f3 = new Sprite(16,0,3,SpriteSheet.player);
+	public static Sprite player_r3 = new Sprite(16,1,3,SpriteSheet.player);
+	public static Sprite player_b3 = new Sprite(16,2,3,SpriteSheet.player);
+	public static Sprite player_l3 = new Sprite(16,3,3,SpriteSheet.player);
 	
 	//Mobs
 	

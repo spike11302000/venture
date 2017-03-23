@@ -62,11 +62,7 @@ public class Main extends Canvas implements Runnable {
 		screen = new Screen(WIDTH, HEIGHT);
 		level = new RandomLevel(64, 64);
 		key = new Keyboard();
-		player = new Player(key);
-
-		level.add(new testEntity());
-
-		System.out.println(level.entities.toString());
+		player = new Player(key); 
 		addKeyListener(key);
 	}
 
@@ -116,7 +112,7 @@ public class Main extends Canvas implements Runnable {
 			while (System.currentTimeMillis() - lastTimer > 1000) {
 				lastTimer += 1000;
 				System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps | "+level.entities.size()+" Entities");
+				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
 				// level.updateTimer();
 				frames = 0;
 				updates = 0;
@@ -132,7 +128,7 @@ public class Main extends Canvas implements Runnable {
 		key.update();
 		player.update();
 		level.update();
-		level.add(new testEntity());
+		//level.add(new testEntity());
 		
 	}
 

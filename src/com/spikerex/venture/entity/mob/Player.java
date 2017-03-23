@@ -7,6 +7,9 @@ import com.spikerex.venture.input.Keyboard;
 public class Player extends Mob {
 	private Keyboard input;
 
+	private int anim = 0;
+	private boolean walking = false;
+
 	public Player(Keyboard input) {
 		this.input = input;
 	}
@@ -19,6 +22,10 @@ public class Player extends Mob {
 
 	public void update() {
 		int xa = 0, ya = 0;
+		if (anim < 7500)
+			anim++;
+		else
+			anim = 0;
 		if (input.up)
 			ya--;
 		if (input.down)
@@ -27,8 +34,12 @@ public class Player extends Mob {
 			xa--;
 		if (input.right)
 			xa++;
-		if (xa != 0 || ya != 0)
+		walking = false;
+		if (xa != 0 || ya != 0) {
 			move(xa, ya);
+			walking = true;
+		}
+
 	}
 
 	/*
@@ -36,13 +47,51 @@ public class Player extends Mob {
 	 * if(ya<0)direction=0;
 	 */
 	public void render(Screen screen) {
-		if (direction == 0)
-			screen.renderPlayer(x, y, Sprite.player0);
-		if (direction == 1)
-			screen.renderPlayer(x, y, Sprite.player1);
-		if (direction == 3)
-			screen.renderPlayer(x, y, Sprite.player2);
-		if (direction == 2)
-			screen.renderPlayer(x, y, Sprite.player3);
+		int xx = x - 8, yy = y - 8;
+		if (direction == 0) {
+			this.sprite = Sprite.player_f;
+			if (walking) {
+				if (anim % 30 > 10)
+					this.sprite = Sprite.player_f1;
+				if (anim % 30 > 20)
+					this.sprite = Sprite.player_f2;
+				if (anim % 30 > 30)
+					this.sprite = Sprite.player_f3;
+			}
+		}
+		if (direction == 1) {
+			this.sprite = Sprite.player_r;
+			if (walking) {
+				if (anim % 30 > 10)
+					this.sprite = Sprite.player_r1;
+				if (anim % 30 > 20)
+					this.sprite = Sprite.player_r2;
+				if (anim % 30 > 30)
+					this.sprite = Sprite.player_r3;
+			}
+		}
+		if (direction == 3) {
+			this.sprite = Sprite.player_b;
+			if (walking) {
+				if (anim % 30 > 10)
+					this.sprite = Sprite.player_b1;
+				if (anim % 30 > 20)
+					this.sprite = Sprite.player_b2;
+				if (anim % 30 > 30)
+					this.sprite = Sprite.player_b3;
+			}
+		}
+		if (direction == 2) {
+			this.sprite = Sprite.player_l;
+			if (walking) {
+				if (anim % 30 > 10)
+					this.sprite = Sprite.player_l1;
+				if (anim % 30 > 20)
+					this.sprite = Sprite.player_l2;
+				if (anim % 30 > 30)
+					this.sprite = Sprite.player_l3;
+			}
+		}
+		screen.renderPlayer(xx, yy, this.sprite);
 	}
 }
