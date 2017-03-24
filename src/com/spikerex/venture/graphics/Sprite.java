@@ -14,7 +14,7 @@ public class Sprite {
 	public static Sprite redFlower = new Sprite(16,2,0,SpriteSheet.tiles);
 	//Tree
 	public static Sprite treeTop = new Sprite(16,0,1,SpriteSheet.tiles);
-	public static Sprite treeBottom = new Sprite(16,0,2,SpriteSheet.tiles);
+	public static Sprite treeBottom = new Sprite(16,1,1,SpriteSheet.tiles);
 	
 	
 	//Player
