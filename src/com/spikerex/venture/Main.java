@@ -14,7 +14,7 @@ import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
 import com.spikerex.venture.level.Level;
-import com.spikerex.venture.level.RandomLevel;
+import com.spikerex.venture.level.PerlinLevel;
 
 public class Main extends Canvas implements Runnable {
 	/**
@@ -59,9 +59,9 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(size);
 
 		screen = new Screen(WIDTH, HEIGHT);
-		level = new RandomLevel(64, 64);
+		level = new PerlinLevel(64, 64);
 		key = new Keyboard();
-		player = new Player(key); 
+		player = new Player(key);
 		addKeyListener(key);
 	}
 
@@ -127,6 +127,7 @@ public class Main extends Canvas implements Runnable {
 		key.update();
 		player.update();
 		level.update();
+		//System.out.println(ImprovedNoise.noise(tick/100.0, 0.0, 0.0));
 		//level.add(new testEntity());
 		
 	}
