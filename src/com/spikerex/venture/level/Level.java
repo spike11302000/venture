@@ -17,7 +17,6 @@ public class Level {
 		this.height = height;
 		tiles = new int[width * height];
 		generateLevel();
-		generateTrees();
 	}
 
 	public Level(String path) {
@@ -31,9 +30,7 @@ public class Level {
 	private void loadLevel(String path) {
 
 	}
-	public void generateTrees(){
-		
-	}
+
 	public void update() {
 		for (Entity ent : entities) {
 			ent.update();
@@ -52,13 +49,14 @@ public class Level {
 				getTile(x, y).render(x, y, screen);
 			}
 		}
-		
+
 	}
+
 	public void renderLast(int xScroll, int yScroll, Screen screen) {
 		screen.setOffset(xScroll, yScroll);
-		int x0 = (xScroll >> 4)-16;
+		int x0 = (xScroll >> 4) - 16;
 		int x1 = (xScroll + screen.width + 32) >> 4;
-		int y0 = (yScroll >> 4)-16;
+		int y0 = (yScroll >> 4) - 16;
 		int y1 = (yScroll + screen.height + 32) >> 4;
 
 		for (int y = y0; y < y1; y++) {
@@ -66,16 +64,21 @@ public class Level {
 				getTile(x, y).renderLast(x, y, screen);
 			}
 		}
-		
+
 	}
-	public void renderEntities(Screen screen){
+
+	public void renderEntities(int xScroll, int yScroll, Screen screen) {
 		for (Entity ent : entities) {
-			ent.render(screen);
+			//if ((ent.x - xScroll)+ent.width > 0 && ent.x - xScroll < screen.width && (ent.y - yScroll)+ent.height > 0
+					//&& (ent.y - yScroll)-ent.height < screen.height)
+				ent.render(screen);
 		}
 	}
+
 	public void add(Entity e) {
 		entities.add(e);
 	}
+
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return Tile.voidTile;
@@ -84,6 +87,14 @@ public class Level {
 			return Tile.grass;
 		case 1:
 			return Tile.rock;
+		case 2:
+			return Tile.redFlower;
+		case 3:
+			return Tile.yellowFlower;
+		case 4:
+			return Tile.sand;
+		case 5:
+			return Tile.water;
 		}
 		return Tile.voidTile;
 	}

@@ -10,6 +10,10 @@ public class Tile {
 	public static Tile voidTile = new voidTile(Sprite.voidSprite);
 	public static Tile grass = new grassTile(Sprite.grass);
 	public static Tile rock = new rockTile(Sprite.rock);
+	public static Tile redFlower = new redFlowerTile(Sprite.redFlower);
+	public static Tile yellowFlower = new yellowFlowerTile(Sprite.yellowFlower);
+	public static Tile sand = new sandTile(Sprite.sand);
+	public static Tile water = new waterTile(Sprite.water);
 	
 	public Tile(Sprite sprite){
 		this.sprite = sprite;

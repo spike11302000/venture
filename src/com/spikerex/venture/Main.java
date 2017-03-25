@@ -59,9 +59,9 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(size);
 
 		screen = new Screen(WIDTH, HEIGHT);
-		level = new PerlinLevel(64, 64);
+		level = new PerlinLevel(1024, 1024);
 		key = new Keyboard();
-		player = new Player(key);
+		player = new Player(256*16,256*16,key);
 		addKeyListener(key);
 	}
 
@@ -111,7 +111,7 @@ public class Main extends Canvas implements Runnable {
 			while (System.currentTimeMillis() - lastTimer > 1000) {
 				lastTimer += 1000;
 				System.out.println(updates + " ups, " + frames + " fps");
-				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps");
+				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps | "+level.entities.size()+" Entities");
 				// level.updateTimer();
 				frames = 0;
 				updates = 0;
@@ -125,7 +125,7 @@ public class Main extends Canvas implements Runnable {
 	public void update() {
 		tick++;
 		key.update();
-		player.update();
+		player.update(level);
 		level.update();
 		//System.out.println(ImprovedNoise.noise(tick/100.0, 0.0, 0.0));
 		//level.add(new testEntity());
@@ -144,7 +144,7 @@ public class Main extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-		level.renderEntities(screen);
+		level.renderEntities(xScroll, yScroll,screen);
 		level.renderLast(xScroll, yScroll, screen);
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
@@ -153,5 +153,7 @@ public class Main extends Canvas implements Runnable {
 		g.dispose();
 		bs.show();
 	}
+
+	
 
 }
