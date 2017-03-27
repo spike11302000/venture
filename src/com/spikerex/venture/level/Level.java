@@ -14,7 +14,8 @@ public class Level {
 	protected int[] tiles;
 	public List<Entity> entities = new ArrayList<Entity>();
 	public Mouse mouse;
-	public int offsetX,offsetY;
+	public int offsetX, offsetY;
+
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -33,23 +34,31 @@ public class Level {
 	private void loadLevel(String path) {
 
 	}
-	public void setMouse(Mouse mouse){
-		
+
+	public void setMouse(Mouse mouse) {
+		this.mouse = mouse;
 	}
+
 	public void update() {
-		//System.out.println(offsetX);
+		// System.out.println(offsetX);
 		for (Entity ent : entities) {
-			if(ent.isRemoved()){
+			if (ent.isRemoved()) {
 				remove(ent);
 				break;
 			}
 			ent.update();
-			if(ent instanceof ClickableEntity){
-				//System.out.println((ent.x) - offsetX+","+(ent.y - offsetY)+" "+(ent.x - offsetX + ent.width)+","+(ent.y - offsetY + ent.height)+" "+mouse.getX()/3+","+mouse.getY()/3);
-				if ((ent.x - offsetX) < (mouse.getX()/3) && (ent.x - offsetX + ent.width) > (mouse.getX()/3) && (ent.y - offsetY)-16 < (mouse.getY()/3) && (ent.y - offsetY + ent.height)-16 > (mouse.getY()/3)){
+			if (ent instanceof ClickableEntity) {
+				// System.out.println((ent.x) - offsetX+","+(ent.y - offsetY)+"
+				// "+(ent.x - offsetX + ent.width)+","+(ent.y - offsetY +
+				// ent.height)+" "+mouse.getX()/3+","+mouse.getY()/3);
+				if ((ent.x - offsetX) < (mouse.getX() / 3) && (ent.x - offsetX + ent.width) > (mouse.getX() / 3)
+						&& (ent.y - offsetY) - 16 < (mouse.getY() / 3)
+						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getY() / 3)) {
 					((ClickableEntity) ent).Hovered();
-					if(mouse.getButton()!=-1)
+					if (mouse.getButton() != -1) {
 						((ClickableEntity) ent).Clicked();
+						break;
+					}
 				}
 			}
 		}
@@ -89,8 +98,8 @@ public class Level {
 
 	public void renderEntities(int xScroll, int yScroll, Screen screen) {
 		for (Entity ent : entities) {
-			//if ((ent.x - xScroll)+ent.width > 0 && ent.x - xScroll < screen.width && (ent.y - yScroll)+ent.height > 0
-					//&& (ent.y - yScroll)-ent.height < screen.height)
+			if ((ent.x - xScroll) + ent.width > 0 && ent.x - xScroll < screen.width
+					&& (ent.y - yScroll) + ent.height > 0 && (ent.y - yScroll) - ent.height < screen.height)
 				ent.render(screen);
 		}
 	}
@@ -98,9 +107,11 @@ public class Level {
 	public void add(Entity e) {
 		entities.add(e);
 	}
-	public void remove(Entity e){
+
+	public void remove(Entity e) {
 		entities.remove(e);
 	}
+
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return Tile.voidTile;
