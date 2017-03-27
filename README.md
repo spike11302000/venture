@@ -4,7 +4,7 @@ a 2d voxel game made in java based on TheCherno's Game programmimg series https:
 ## Todo
 ### High Priority
 1. Add NBT api for level loading/saving
-2. Add better level generation
+~~2. Add better level generation~~
 3. Make better Sprites 
 
 ### Low Priority
