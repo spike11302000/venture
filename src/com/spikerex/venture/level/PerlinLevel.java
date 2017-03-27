@@ -2,7 +2,7 @@ package com.spikerex.venture.level;
 
 import java.util.Random;
 
-import com.spikerex.venture.entity.treeEntity;
+import com.spikerex.venture.entity.clickable.treeEntity;
 import com.spikerex.venture.util.ImprovedNoise;
 
 public class PerlinLevel extends Level {
@@ -25,7 +25,7 @@ public class PerlinLevel extends Level {
 					tile = 5;
 				}
 				if (tile == 0) {
-					if (random.nextInt(20) < 1)
+					if (random.nextInt(2) < 1)
 						add(new treeEntity(x * 16, y * 16));
 
 					if (random.nextInt(20) < 1)

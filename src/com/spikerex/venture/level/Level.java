@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spikerex.venture.entity.Entity;
+import com.spikerex.venture.entity.clickable.ClickableEntity;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.level.tile.Tile;
+import com.spikerex.venture.input.Mouse;
 
 public class Level {
 	protected int width, height;
 	protected int[] tiles;
 	public List<Entity> entities = new ArrayList<Entity>();
-
+	public Mouse mouse;
+	public int offsetX,offsetY;
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -30,14 +33,31 @@ public class Level {
 	private void loadLevel(String path) {
 
 	}
-
+	public void setMouse(Mouse mouse){
+		
+	}
 	public void update() {
+		//System.out.println(offsetX);
 		for (Entity ent : entities) {
+			if(ent.isRemoved()){
+				remove(ent);
+				break;
+			}
 			ent.update();
+			if(ent instanceof ClickableEntity){
+				//System.out.println((ent.x) - offsetX+","+(ent.y - offsetY)+" "+(ent.x - offsetX + ent.width)+","+(ent.y - offsetY + ent.height)+" "+mouse.getX()/3+","+mouse.getY()/3);
+				if ((ent.x - offsetX) < (mouse.getX()/3) && (ent.x - offsetX + ent.width) > (mouse.getX()/3) && (ent.y - offsetY)-16 < (mouse.getY()/3) && (ent.y - offsetY + ent.height)-16 > (mouse.getY()/3)){
+					((ClickableEntity) ent).Hovered();
+					if(mouse.getButton()!=-1)
+						((ClickableEntity) ent).Clicked();
+				}
+			}
 		}
 	}
 
 	public void render(int xScroll, int yScroll, Screen screen) {
+		this.offsetX = xScroll;
+		this.offsetY = yScroll;
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 4;
 		int x1 = (xScroll + screen.width + 16) >> 4;
@@ -78,7 +98,9 @@ public class Level {
 	public void add(Entity e) {
 		entities.add(e);
 	}
-
+	public void remove(Entity e){
+		entities.remove(e);
+	}
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return Tile.voidTile;

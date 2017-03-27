@@ -2,7 +2,7 @@ package com.spikerex.venture.level;
 
 import java.util.Random;
 
-import com.spikerex.venture.entity.treeEntity;
+import com.spikerex.venture.entity.clickable.treeEntity;
 
 public class RandomLevel extends Level {
 	private static final Random random = new Random();

@@ -10,6 +10,7 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+import com.spikerex.venture.entity.clickable.treeEntity;
 import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
@@ -61,10 +62,13 @@ public class Main extends Canvas implements Runnable {
 		setMaximumSize(size);
 
 		screen = new Screen(WIDTH, HEIGHT);
-		level = new PerlinLevel(1024, 1024);
-		key = new Keyboard();
-		player = new Player(256*16,256*16,key);
 		mouse = new Mouse();
+		key = new Keyboard();
+		level = new PerlinLevel(512, 512);
+		level.setMouse(mouse);
+		level.add(new treeEntity(256 * 16, 256 * 16));
+		player = new Player(256*16,256*16,key);
+		
 		addKeyListener(key);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
@@ -155,7 +159,7 @@ public class Main extends Canvas implements Runnable {
 			pixels[i] = screen.pixels[i];
 		}
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.fillRect(mouse.getX(), mouse.getY(), 64,64);
+		g.fillRect(mouse.getX(), mouse.getY(), 16,16);
 		g.dispose();
 		bs.show();
 	}
