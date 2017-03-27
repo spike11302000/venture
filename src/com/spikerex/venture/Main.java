@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Keyboard;
+import com.spikerex.venture.input.Mouse;
 import com.spikerex.venture.level.Level;
 import com.spikerex.venture.level.PerlinLevel;
 
@@ -36,6 +37,7 @@ public class Main extends Canvas implements Runnable {
 	private Keyboard key;
 	private Level level;
 	private Player player;
+	private Mouse mouse;
 
 	public static void main(String[] args) {
 		Main game = new Main();
@@ -62,7 +64,10 @@ public class Main extends Canvas implements Runnable {
 		level = new PerlinLevel(1024, 1024);
 		key = new Keyboard();
 		player = new Player(256*16,256*16,key);
+		mouse = new Mouse();
 		addKeyListener(key);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start() {
@@ -125,7 +130,7 @@ public class Main extends Canvas implements Runnable {
 	public void update() {
 		tick++;
 		key.update();
-		player.update(level);
+		player.update();
 		level.update();
 		//System.out.println(ImprovedNoise.noise(tick/100.0, 0.0, 0.0));
 		//level.add(new testEntity());
@@ -150,6 +155,7 @@ public class Main extends Canvas implements Runnable {
 			pixels[i] = screen.pixels[i];
 		}
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.fillRect(mouse.getX(), mouse.getY(), 64,64);
 		g.dispose();
 		bs.show();
 	}
