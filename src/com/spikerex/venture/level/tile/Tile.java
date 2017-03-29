@@ -17,6 +17,10 @@ public class Tile {
 	
 	public Tile(Sprite sprite){
 		this.sprite = sprite;
+		System.out.println("Loaded: "+getName());
+	}
+	public String getName() {
+		return "";
 	}
 	public void render(int x,int y,Screen screen){
 		screen.renderTiles(x<<4, y<<4, this);

@@ -8,5 +8,7 @@ public class redFlowerTile extends Tile {
 		super(sprite);
 		// TODO Auto-generated constructor stub
 	}
-
+	public String getName() {
+		return "Red Flower";
+	}
 }

@@ -8,5 +8,8 @@ public class sandTile extends Tile {
 		super(sprite);
 		// TODO Auto-generated constructor stub
 	}
+	public String getName() {
+		return "Sand";
+	}
 
 }

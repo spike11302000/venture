@@ -7,4 +7,7 @@ public class grassTile extends Tile {
 	public grassTile(Sprite sprite) {
 		super(sprite);
 	}
+	public String getName() {
+		return "Grass";
+	}
 }

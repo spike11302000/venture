@@ -25,6 +25,7 @@ public class SpriteSheet {
 			int w = image.getWidth();
 			int h = image.getHeight();
 			image.getRGB(0, 0, w, h, pixels, 0, w);
+			System.out.println("Loaded: "+path);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

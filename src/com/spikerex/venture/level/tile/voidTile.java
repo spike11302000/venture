@@ -7,5 +7,7 @@ public class voidTile extends Tile {
 	public voidTile(Sprite sprite) {
 		super(sprite);
 	}
-
+	public String getName() {
+		return "Void";
+	}
 }

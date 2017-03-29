@@ -119,7 +119,7 @@ public class Main extends Canvas implements Runnable {
 
 			while (System.currentTimeMillis() - lastTimer > 1000) {
 				lastTimer += 1000;
-				System.out.println(updates + " ups, " + frames + " fps");
+				//System.out.println(updates + " ups, " + frames + " fps");
 				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps | "+level.entities.size()+" Entities");
 				// level.updateTimer();
 				frames = 0;

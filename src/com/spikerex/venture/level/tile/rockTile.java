@@ -6,4 +6,8 @@ public class rockTile extends Tile{
 	public rockTile(Sprite sprite) {
 		super(sprite);
 	}
+	public String getName() {
+		return "Rock";
+		
+	}
 }

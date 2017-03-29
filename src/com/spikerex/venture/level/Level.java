@@ -38,7 +38,8 @@ public class Level {
 	public void setMouse(Mouse mouse) {
 		this.mouse = mouse;
 	}
-
+	
+	boolean clicked = false;
 	public void update() {
 		// System.out.println(offsetX);
 		for (Entity ent : entities) {
@@ -47,18 +48,23 @@ public class Level {
 				break;
 			}
 			ent.update();
+		}
+		for (int i = entities.size()-1;i>0;i--) {
+			Entity ent = entities.get(i);
 			if (ent instanceof ClickableEntity) {
-				// System.out.println((ent.x) - offsetX+","+(ent.y - offsetY)+"
-				// "+(ent.x - offsetX + ent.width)+","+(ent.y - offsetY +
-				// ent.height)+" "+mouse.getX()/3+","+mouse.getY()/3);
 				if ((ent.x - offsetX) < (mouse.getX() / 3) && (ent.x - offsetX + ent.width) > (mouse.getX() / 3)
 						&& (ent.y - offsetY) - 16 < (mouse.getY() / 3)
 						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getY() / 3)) {
-					((ClickableEntity) ent).Hovered();
 					if (mouse.getButton() != -1) {
-						((ClickableEntity) ent).Clicked();
-						break;
+						if(!clicked){
+							((ClickableEntity) ent).Clicked();
+							clicked = true;
+						}
+					}else{
+						clicked = false;
 					}
+					((ClickableEntity) ent).Hovered();
+
 				}
 			}
 		}
