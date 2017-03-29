@@ -25,7 +25,7 @@ public class PerlinLevel extends Level {
 					tile = 5;
 				}
 				if (tile == 0) {
-					if (random.nextInt(2) < 1)
+					if (random.nextInt(20) < 1)
 						add(new treeEntity(x * 16, y * 16));
 
 					if (random.nextInt(20) < 1)
