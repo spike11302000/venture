@@ -31,17 +31,17 @@ public class Main extends Canvas implements Runnable {
 
 	private Thread thread;
 	private boolean running = false;
-	private Screen screen;
+	public Screen screen;
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private JFrame frame;
-	private Keyboard key;
-	private Level level;
-	private Player player;
-	private Mouse mouse;
-
+	public Keyboard key;
+	public Level level;
+	public Player player;
+	public Mouse mouse;
+	public static Main game;
 	public static void main(String[] args) {
-		Main game = new Main();
+		game = new Main();
 		game.frame = new JFrame();
 		game.frame.setResizable(false);
 		game.frame.setTitle(Main.TITLE);
@@ -54,7 +54,9 @@ public class Main extends Canvas implements Runnable {
 		game.start();
 
 	}
-
+	public static Main getGame(){
+		return game;
+	}
 	public Main() {
 		Dimension size = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 		setPreferredSize(size);

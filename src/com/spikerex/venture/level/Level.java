@@ -110,7 +110,9 @@ public class Level {
 	}
 
 	public void add(Entity e) {
+		e.setLevel(this);
 		entities.add(e);
+		
 	}
 
 	public void remove(Entity e) {
