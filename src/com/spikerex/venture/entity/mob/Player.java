@@ -3,24 +3,31 @@ package com.spikerex.venture.entity.mob;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
 import com.spikerex.venture.input.Keyboard;
+import com.spikerex.venture.input.Mouse;
 
 public class Player extends Mob {
 	private Keyboard input;
+	private Mouse mouse;
 
 	private int anim = 0;
 	private boolean walking = false;
+	private boolean goingto = false;
 
-	public Player(Keyboard input) {
+	public int gotoX, gotoY;
+
+	public Player(Keyboard input,Mouse mouse) {
 		this.input = input;
+		this.mouse = mouse;
 	}
 
-	public Player(int x, int y, Keyboard input) {
+	public Player(int x, int y, Keyboard input,Mouse mouse) {
 		this.x = x;
 		this.y = y;
 		this.input = input;
 	}
 
 	public void update() {
+		
 		int xa = 0, ya = 0;
 		if (anim < 7500)
 			anim++;
@@ -35,11 +42,35 @@ public class Player extends Mob {
 		if (input.right)
 			xa++;
 		walking = false;
+		if (xa == 0 && ya == 0)
+			goingto = false;
+
+		if (goingto) {
+			if (x > gotoX) {
+				xa = -1;
+			} else if (x < gotoX) {
+				xa = 1;
+			} else if (y > gotoY) {
+				ya = -1;
+			} else if (y < gotoY) {
+				ya = 1;
+			}
+		}
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			walking = true;
 		}
 
+	}
+
+	public void gotoLoc(int x, int y) {
+		goingto = true;
+		gotoX = x;
+		gotoY = y;
+	}
+
+	public boolean finishedGoto() {
+		return x == gotoX && y == gotoY;
 	}
 
 	/*

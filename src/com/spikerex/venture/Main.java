@@ -69,7 +69,7 @@ public class Main extends Canvas implements Runnable {
 		level = new PerlinLevel(512, 512);
 		level.setMouse(mouse);
 		level.add(new treeEntity(256 * 16, 256 * 16));
-		player = new Player(256*16,256*16,key);
+		player = new Player(256*16,256*16,key,mouse);
 		
 		addKeyListener(key);
 		addMouseListener(mouse);

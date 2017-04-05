@@ -16,7 +16,12 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	public static int getY() {
 		return mouseY;
 	}
-
+	public static int getGX(){
+		return mouseX/3;
+	}
+	public static int getGY(){
+		return mouseY/3;
+	}
 	public static int getButton() {
 		return mouseB;
 	}

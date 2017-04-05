@@ -53,9 +53,9 @@ public class Level {
 			if (ent instanceof ClickableEntity) {
 				((ClickableEntity) ent).isHoveded = false;
 				((ClickableEntity) ent).isClicked = false;
-				if ((ent.x - offsetX) < (mouse.getX() / 3) && (ent.x - offsetX + ent.width) > (mouse.getX() / 3)
-						&& (ent.y - offsetY) - 16 < (mouse.getY() / 3)
-						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getY() / 3)) {
+				if ((ent.x - offsetX) < (mouse.getGX() ) && (ent.x - offsetX + ent.width) > (mouse.getGX() / 3)
+						&& (ent.y - offsetY) - 16 < (mouse.getGY())
+						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getGY())) {
 					if (mouse.getButton() != -1) {
 						((ClickableEntity) ent).Clicked();
 						((ClickableEntity) ent).isClicked = true;
