@@ -5,9 +5,10 @@ import java.util.List;
 
 import com.spikerex.venture.entity.Entity;
 import com.spikerex.venture.entity.clickable.ClickableEntity;
+import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
-import com.spikerex.venture.level.tile.Tile;
 import com.spikerex.venture.input.Mouse;
+import com.spikerex.venture.level.tile.Tile;
 
 public class Level {
 	protected int width, height;
@@ -15,6 +16,7 @@ public class Level {
 	public List<Entity> entities = new ArrayList<Entity>();
 	public Mouse mouse;
 	public int offsetX, offsetY;
+	public Player player;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -26,7 +28,7 @@ public class Level {
 	public Level(String path) {
 		loadLevel(path);
 	}
-
+	
 	protected void generateLevel() {
 
 	}
@@ -38,7 +40,9 @@ public class Level {
 	public void setMouse(Mouse mouse) {
 		this.mouse = mouse;
 	}
-
+	public void setPlayer(Player player){
+		this.player= player;
+	}
 	public void update() {
 		// System.out.println(offsetX);
 		for (Entity ent : entities) {
@@ -53,10 +57,12 @@ public class Level {
 			if (ent instanceof ClickableEntity) {
 				((ClickableEntity) ent).isHoveded = false;
 				((ClickableEntity) ent).isClicked = false;
-				if ((ent.x - offsetX) < (mouse.getGX() ) && (ent.x - offsetX + ent.width) > (mouse.getGX() / 3)
+				if ((ent.x - offsetX) < (mouse.getGX() ) 
+						&& (ent.x - offsetX + ent.width) > (mouse.getGX())
 						&& (ent.y - offsetY) - 16 < (mouse.getGY())
 						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getGY())) {
 					if (mouse.getButton() != -1) {
+						player.setTarget(ent);
 						((ClickableEntity) ent).Clicked();
 						((ClickableEntity) ent).isClicked = true;
 

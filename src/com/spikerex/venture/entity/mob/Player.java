@@ -1,5 +1,7 @@
 package com.spikerex.venture.entity.mob;
 
+import com.spikerex.venture.Main;
+import com.spikerex.venture.entity.Entity;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
 import com.spikerex.venture.input.Keyboard;
@@ -14,19 +16,26 @@ public class Player extends Mob {
 	private boolean goingto = false;
 
 	public int gotoX, gotoY;
+	private Entity target = null;
 
-	public Player(Keyboard input,Mouse mouse) {
+	public Player(Keyboard input, Mouse mouse) {
 		this.input = input;
 		this.mouse = mouse;
 	}
 
-	public Player(int x, int y, Keyboard input,Mouse mouse) {
+	public Player(int x, int y, Keyboard input, Mouse mouse) {
 		this.x = x;
 		this.y = y;
 		this.input = input;
 	}
-
+	public void setTarget(Entity ent){
+		this.target = ent;
+	}
 	public void update() {
+		if (mouse.getButton() != -1) {
+			
+			gotoLoc((this.x + mouse.getGX()) - Main.WIDTH / 2, (this.y + mouse.getGY()) - Main.HEIGHT / 2);
+		}
 		
 		int xa = 0, ya = 0;
 		if (anim < 7500)
@@ -42,7 +51,7 @@ public class Player extends Mob {
 		if (input.right)
 			xa++;
 		walking = false;
-		if (xa == 0 && ya == 0)
+		if (xa != 0 && ya != 0)
 			goingto = false;
 
 		if (goingto) {
@@ -54,6 +63,8 @@ public class Player extends Mob {
 				ya = -1;
 			} else if (y < gotoY) {
 				ya = 1;
+			} else {
+				goingto = false;
 			}
 		}
 		if (xa != 0 || ya != 0) {
@@ -70,7 +81,7 @@ public class Player extends Mob {
 	}
 
 	public boolean finishedGoto() {
-		return x == gotoX && y == gotoY;
+		return x == gotoX && y == gotoY || !goingto;
 	}
 
 	/*
@@ -124,5 +135,9 @@ public class Player extends Mob {
 			}
 		}
 		screen.renderPlayer(xx, yy, this.sprite);
+		if(goingto){
+			screen.renderSprite(this.gotoX-4, this.gotoY-4, new Sprite(8,0xffffff),0.8f);
+
+		}
 	}
 }

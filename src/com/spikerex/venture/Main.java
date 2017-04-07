@@ -70,7 +70,7 @@ public class Main extends Canvas implements Runnable {
 		level.setMouse(mouse);
 		level.add(new treeEntity(256 * 16, 256 * 16));
 		player = new Player(256*16,256*16,key,mouse);
-		
+		level.setPlayer(player);
 		addKeyListener(key);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
