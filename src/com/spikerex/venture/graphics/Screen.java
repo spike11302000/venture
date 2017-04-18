@@ -37,9 +37,11 @@ public class Screen {
 		}
 	}
 
-	public void renderSprite(int xp, int yp, Sprite sprite) {
-		xp -= xOffset;
-		yp -= yOffset;
+	public void renderSprite(int xp, int yp, Sprite sprite, boolean fixed) {
+		if (!fixed) {
+			xp -= xOffset;
+			yp -= yOffset;
+		}
 		for (int y = 0; y < sprite.SIZE; y++) {
 			int ya = y + yp;
 			for (int x = 0; x < sprite.SIZE; x++) {
@@ -48,7 +50,7 @@ public class Screen {
 					break;
 				if (xa < 0)
 					xa = 0;
-				if (sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff)
+				if (!(!(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff) || !(sprite.pixels[x + y * sprite.SIZE] != 0x00)))
 					pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
@@ -69,26 +71,26 @@ public class Screen {
 					int sr = (sprite.pixels[x + y * sprite.SIZE] >> 16) & 0xFF;
 					int sg = (sprite.pixels[x + y * sprite.SIZE] >> 8) & 0xFF;
 					int sb = (sprite.pixels[x + y * sprite.SIZE] >> 0) & 0xFF;
-					
+
 					int pr = (pixels[xa + ya * width] >> 16) & 0xFF;
 					int pg = (pixels[xa + ya * width] >> 8) & 0xFF;
 					int pb = (pixels[xa + ya * width] >> 0) & 0xFF;
-					
-					int r = (int)lerp(pr,sr,o);
-					int b = (int)lerp(pb,sb,o);
-					int g = (int)lerp(pb,sg,o);
-					int color = r;
-					
-					color = (color<<8)+g;
-					color = (color<<8)+b;
 
-					
-					pixels[xa + ya * width]  = color;
+					int r = (int) lerp(pr, sr, o);
+					int b = (int) lerp(pb, sb, o);
+					int g = (int) lerp(pb, sg, o);
+					int color = r;
+
+					color = (color << 8) + g;
+					color = (color << 8) + b;
+
+					pixels[xa + ya * width] = color;
 				}
-				
+
 			}
 		}
 	}
+
 	public void renderSpriteWhiten(int xp, int yp, Sprite sprite, float o) {
 		xp -= xOffset;
 		yp -= yOffset;
@@ -104,23 +106,22 @@ public class Screen {
 					int sr = (sprite.pixels[x + y * sprite.SIZE] >> 16) & 0xFF;
 					int sg = (sprite.pixels[x + y * sprite.SIZE] >> 8) & 0xFF;
 					int sb = (sprite.pixels[x + y * sprite.SIZE] >> 0) & 0xFF;
-					
+
 					int pr = (pixels[xa + ya * width] >> 16) & 0xFF;
 					int pg = (pixels[xa + ya * width] >> 8) & 0xFF;
 					int pb = (pixels[xa + ya * width] >> 0) & 0xFF;
-					
-					int r = (int)lerp(sr,0xff,o);
-					int b = (int)lerp(sb,0xff,o);
-					int g = (int)lerp(sg,0xff,o);
-					int color = r;
-					
-					color = (color<<8)+g;
-					color = (color<<8)+b;
 
-					
-					pixels[xa + ya * width]  = color;
+					int r = (int) lerp(sr, 0xff, o);
+					int b = (int) lerp(sb, 0xff, o);
+					int g = (int) lerp(sg, 0xff, o);
+					int color = r;
+
+					color = (color << 8) + g;
+					color = (color << 8) + b;
+
+					pixels[xa + ya * width] = color;
 				}
-				
+
 			}
 		}
 	}

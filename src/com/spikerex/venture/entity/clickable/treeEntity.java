@@ -16,8 +16,8 @@ public class treeEntity extends ClickableEntity {
 
 	public void render(Screen screen) {
 		if (!this.isHoveded) {
-			screen.renderSprite(this.x, this.y - 16, Sprite.treeTop);
-			screen.renderSprite(this.x, this.y, Sprite.treeBottom);
+			screen.renderSprite(this.x, this.y - 16, Sprite.treeTop,false);
+			screen.renderSprite(this.x, this.y, Sprite.treeBottom,false);
 		} else {
 			screen.renderSpriteWhiten(this.x, this.y - 16, Sprite.treeTop, .2f);
 			screen.renderSpriteWhiten(this.x, this.y, Sprite.treeBottom, .2f);

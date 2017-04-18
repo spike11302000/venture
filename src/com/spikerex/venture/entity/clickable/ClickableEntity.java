@@ -21,7 +21,7 @@ public class ClickableEntity extends Entity {
 
 	public void render(Screen screen) {
 		if (!this.isHoveded) {
-			screen.renderSprite(this.x, this.y, this.sprite);
+			screen.renderSprite(this.x, this.y, this.sprite,false);
 		} else {
 			screen.renderSpriteWhiten(this.x, this.y, this.sprite, .2f);
 		}

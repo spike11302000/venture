@@ -22,6 +22,6 @@ public class testEntity extends Entity {
 	}
 
 	public void render(Screen screen) {
-		screen.renderSprite(this.x, this.y, Sprite.testEntity);
+		screen.renderSprite(this.x, this.y, Sprite.testEntity,false);
 	}
 }
