@@ -156,7 +156,7 @@ public class Main extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-		screen.renderSprite(0, 0, character.getSprite('a'),true);
+		character.print(0, 0, "hello", screen);
 		level.renderEntities(xScroll, yScroll,screen);
 		level.renderLast(xScroll, yScroll, screen);
 		

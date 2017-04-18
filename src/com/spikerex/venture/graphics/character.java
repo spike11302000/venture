@@ -92,4 +92,10 @@ public class character {
 		}
 		return Qmark;
 	}
+
+	public static void print(int x,int y,String s,Screen screen){
+		for(int i = 0;i<s.length();i++){
+			screen.renderSprite(x+(10*i), y, getSprite(s.charAt(i)),true);
+		}
+	}
 }
