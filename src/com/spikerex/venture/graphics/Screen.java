@@ -50,8 +50,32 @@ public class Screen {
 					break;
 				if (xa < 0)
 					xa = 0;
-				if (!(!(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff) || !(sprite.pixels[x + y * sprite.SIZE] != 0x00)))
+				if (!(!(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff)
+						|| !(sprite.pixels[x + y * sprite.SIZE] != 0x00)))
 					pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
+			}
+		}
+	}
+
+	public void renderSprite(int xp, int yp, Sprite sprite, int color, boolean fixed) {
+		if (!fixed) {
+			xp -= xOffset;
+			yp -= yOffset;
+		}
+		for (int y = 0; y < sprite.SIZE; y++) {
+			int ya = y + yp;
+			for (int x = 0; x < sprite.SIZE; x++) {
+				int xa = x + xp;
+				if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height)
+					break;
+				if (xa < 0)
+					xa = 0;
+				if (!(!(sprite.pixels[x + y * sprite.SIZE] != 0xffff00ff)
+						|| !(sprite.pixels[x + y * sprite.SIZE] != 0x00)))
+					if (sprite.pixels[x + y * sprite.SIZE] == 0xFFFFFFFF)
+						pixels[xa + ya * width] = color;
+					else
+						pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
 	}

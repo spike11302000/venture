@@ -12,8 +12,9 @@ import javax.swing.JFrame;
 
 import com.spikerex.venture.entity.clickable.treeEntity;
 import com.spikerex.venture.entity.mob.Player;
+import com.spikerex.venture.graphics.Color;
 import com.spikerex.venture.graphics.Screen;
-import com.spikerex.venture.graphics.character;
+import com.spikerex.venture.graphics.textSprite;
 import com.spikerex.venture.input.Keyboard;
 import com.spikerex.venture.input.Mouse;
 import com.spikerex.venture.level.Level;
@@ -96,7 +97,8 @@ public class Main extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public int fps,ups;
 	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
@@ -125,6 +127,8 @@ public class Main extends Canvas implements Runnable {
 				//System.out.println(updates + " ups, " + frames + " fps");
 				frame.setTitle(TITLE + " | " + updates + " ups, " + frames + " fps | "+level.entities.size()+" Entities");
 				// level.updateTimer();
+				fps = frames;
+				ups = updates;
 				frames = 0;
 				updates = 0;
 			}
@@ -143,7 +147,7 @@ public class Main extends Canvas implements Runnable {
 		//level.add(new testEntity());
 		
 	}
-
+	int color = 0;
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
@@ -156,9 +160,9 @@ public class Main extends Canvas implements Runnable {
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-		character.print(0, 0, "hello", screen);
 		level.renderEntities(xScroll, yScroll,screen);
 		level.renderLast(xScroll, yScroll, screen);
+		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.PURPLE, screen);
 		
 		for (int i = 0; i < WIDTH * HEIGHT; i++) {
 			pixels[i] = screen.pixels[i];
