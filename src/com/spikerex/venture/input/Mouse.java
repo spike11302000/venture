@@ -8,6 +8,10 @@ public class Mouse implements MouseListener, MouseMotionListener {
 	private static int mouseX = -1;
 	private static int mouseY = -1;
 	private static int mouseB = -1;
+	private static int scale = 1;
+	public Mouse(int scale) {
+		this.scale = scale;
+	}
 
 	public static int getX() {
 		return mouseX;
@@ -17,10 +21,10 @@ public class Mouse implements MouseListener, MouseMotionListener {
 		return mouseY;
 	}
 	public static int getGX(){
-		return mouseX/3;
+		return (mouseX/3)*scale;
 	}
 	public static int getGY(){
-		return mouseY/3;
+		return (mouseY/3)*scale;
 	}
 	public static int getButton() {
 		return mouseB;

@@ -127,8 +127,8 @@ public class Level {
 
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
-			return Tile.voidTile;
-		switch (tiles[x + y * width]) {
+			return getTileByName("void");
+		/*switch (tiles[x + y * width]) {
 		case 0:
 			return Tile.grass;
 		case 1:
@@ -141,7 +141,22 @@ public class Level {
 			return Tile.sand;
 		case 5:
 			return Tile.water;
+		}*/
+		return Tile.Tiles.get(tiles[x + y * width]);
+	}
+	public Tile getTileByName(String name){
+		for (Tile t : Tile.Tiles){
+			if(t.getName().toLowerCase().contains(name.toLowerCase()))
+				return t;
 		}
-		return Tile.voidTile;
+		return Tile.Tiles.get(0);
+	}
+	public int getIdByName(String name){
+		for (int i=0;i<Tile.Tiles.size();i++){
+			Tile t = Tile.Tiles.get(i);
+			if(t.getName().toLowerCase().contains(name.toLowerCase()))
+				return i;
+		}
+		return 0;
 	}
 }

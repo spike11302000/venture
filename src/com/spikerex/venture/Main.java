@@ -19,6 +19,7 @@ import com.spikerex.venture.input.Keyboard;
 import com.spikerex.venture.input.Mouse;
 import com.spikerex.venture.level.Level;
 import com.spikerex.venture.level.PerlinLevel;
+import com.spikerex.venture.level.tile.Tile;
 
 public class Main extends Canvas implements Runnable {
 	/**
@@ -30,11 +31,11 @@ public class Main extends Canvas implements Runnable {
 	public final static String TITLE = "Venture";
 	public final static int SCALE = 3;
 	public final static Random rand = new Random();
-
+	public final static int Scale = 1;
 	private Thread thread;
 	private boolean running = false;
 	public Screen screen;
-	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage(WIDTH*Scale, HEIGHT*Scale, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private JFrame frame;
 	public Keyboard key;
@@ -65,10 +66,11 @@ public class Main extends Canvas implements Runnable {
 		setMinimumSize(size);
 		setMaximumSize(size);
 
-		screen = new Screen(WIDTH, HEIGHT);
-		mouse = new Mouse();
+		screen = new Screen(WIDTH*Scale, HEIGHT*Scale);
+		mouse = new Mouse(Scale);
 		key = new Keyboard();
-		level = new PerlinLevel(512, 512);
+		Tile.registerTiles();
+		level = new PerlinLevel(512, 512,1234234);
 		level.setMouse(mouse);
 		level.add(new treeEntity(256 * 16, 256 * 16));
 		player = new Player(256*16,256*16,key,mouse);
@@ -162,9 +164,9 @@ public class Main extends Canvas implements Runnable {
 		player.render(screen);
 		level.renderEntities(xScroll, yScroll,screen);
 		level.renderLast(xScroll, yScroll, screen);
-		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.PURPLE, screen);
+		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.YELLOW, screen);
 		
-		for (int i = 0; i < WIDTH * HEIGHT; i++) {
+		for (int i = 0; i < (WIDTH*Scale) * (HEIGHT*Scale); i++) {
 			pixels[i] = screen.pixels[i];
 		}
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
