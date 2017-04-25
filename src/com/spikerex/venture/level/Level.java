@@ -28,7 +28,7 @@ public class Level {
 	public Level(String path) {
 		loadLevel(path);
 	}
-	
+
 	protected void generateLevel() {
 
 	}
@@ -40,35 +40,39 @@ public class Level {
 	public void setMouse(Mouse mouse) {
 		this.mouse = mouse;
 	}
-	public void setPlayer(Player player){
-		this.player= player;
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
-	public void update() {
+
+	public void update(int tick) {
 		// System.out.println(offsetX);
 		for (Entity ent : entities) {
 			if (ent.isRemoved()) {
 				remove(ent);
 				break;
 			}
-			ent.update();
+			ent.update(tick);
 		}
 		for (int i = entities.size() - 1; i > 0; i--) {
 			Entity ent = entities.get(i);
 			if (ent instanceof ClickableEntity) {
 				((ClickableEntity) ent).isHoveded = false;
 				((ClickableEntity) ent).isClicked = false;
-				if ((ent.x - offsetX) < (mouse.getGX() ) 
-						&& (ent.x - offsetX + ent.width) > (mouse.getGX())
+				if ((ent.x - offsetX) < (mouse.getGX()) && (ent.x - offsetX + ent.width) > (mouse.getGX())
 						&& (ent.y - offsetY) - 16 < (mouse.getGY())
 						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getGY())) {
 					if (mouse.getButton() != -1) {
-						player.setTarget(ent);
+						player.setTarget((ClickableEntity)ent);
 						((ClickableEntity) ent).Clicked();
 						((ClickableEntity) ent).isClicked = true;
+						if (((ClickableEntity) ent).getTargetable())
+							player.setTarget((ClickableEntity)ent);
 
 					}
 					((ClickableEntity) ent).isHoveded = true;
 					((ClickableEntity) ent).Hovered();
+					
 
 				}
 			}
@@ -118,7 +122,7 @@ public class Level {
 	public void add(Entity e) {
 		e.setLevel(this);
 		entities.add(e);
-		
+
 	}
 
 	public void remove(Entity e) {
@@ -128,33 +132,27 @@ public class Level {
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height)
 			return getTileByName("void");
-		/*switch (tiles[x + y * width]) {
-		case 0:
-			return Tile.grass;
-		case 1:
-			return Tile.rock;
-		case 2:
-			return Tile.redFlower;
-		case 3:
-			return Tile.yellowFlower;
-		case 4:
-			return Tile.sand;
-		case 5:
-			return Tile.water;
-		}*/
+		/*
+		 * switch (tiles[x + y * width]) { case 0: return Tile.grass; case 1:
+		 * return Tile.rock; case 2: return Tile.redFlower; case 3: return
+		 * Tile.yellowFlower; case 4: return Tile.sand; case 5: return
+		 * Tile.water; }
+		 */
 		return Tile.Tiles.get(tiles[x + y * width]);
 	}
-	public Tile getTileByName(String name){
-		for (Tile t : Tile.Tiles){
-			if(t.getName().toLowerCase().contains(name.toLowerCase()))
+
+	public Tile getTileByName(String name) {
+		for (Tile t : Tile.Tiles) {
+			if (t.getName().toLowerCase().contains(name.toLowerCase()))
 				return t;
 		}
 		return Tile.Tiles.get(0);
 	}
-	public int getIdByName(String name){
-		for (int i=0;i<Tile.Tiles.size();i++){
+
+	public int getIdByName(String name) {
+		for (int i = 0; i < Tile.Tiles.size(); i++) {
 			Tile t = Tile.Tiles.get(i);
-			if(t.getName().toLowerCase().contains(name.toLowerCase()))
+			if (t.getName().toLowerCase().contains(name.toLowerCase()))
 				return i;
 		}
 		return 0;

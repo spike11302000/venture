@@ -8,7 +8,7 @@ public class Color {
 	//public final static int DRED = 0x2A0000;
 	//public final static int DPURPLE = 0x2A002A;
 	//public final static int GOLD = 0x2A2A00;
-	public final static int GRAY = 0x2A2A2A;
+	public final static int GRAY = 0x7F7F7F;
 	//public final static int DGRAY = 0x151515;
 	public final static int BLUE = 0x0000FF;
 	public final static int GREEN = 0x00FF00;

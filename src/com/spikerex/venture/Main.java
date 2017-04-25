@@ -30,7 +30,7 @@ public class Main extends Canvas implements Runnable {
 	public final static int HEIGHT = WIDTH / 16 * 9;
 	public final static String TITLE = "Venture";
 	public final static int SCALE = 3;
-	public final static Random rand = new Random();
+	public final static Random random = new Random();
 	public final static int Scale = 1;
 	private Thread thread;
 	private boolean running = false;
@@ -144,7 +144,7 @@ public class Main extends Canvas implements Runnable {
 		tick++;
 		key.update();
 		player.update();
-		level.update();
+		level.update(tick);
 		//System.out.println(ImprovedNoise.noise(tick/100.0, 0.0, 0.0));
 		//level.add(new testEntity());
 		
@@ -164,7 +164,7 @@ public class Main extends Canvas implements Runnable {
 		player.render(screen);
 		level.renderEntities(xScroll, yScroll,screen);
 		level.renderLast(xScroll, yScroll, screen);
-		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.YELLOW, screen);
+		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.GRAY, screen);
 		
 		for (int i = 0; i < (WIDTH*Scale) * (HEIGHT*Scale); i++) {
 			pixels[i] = screen.pixels[i];

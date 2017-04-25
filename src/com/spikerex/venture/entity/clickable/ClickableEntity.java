@@ -7,7 +7,7 @@ import com.spikerex.venture.graphics.Sprite;
 public class ClickableEntity extends Entity {
 	public boolean isHoveded, isClicked;
 	public Sprite sprite;
-	
+	public int health = 0;
 	public ClickableEntity(){
 		this.sprite = Sprite.voidSprite;
 	}
@@ -33,5 +33,11 @@ public class ClickableEntity extends Entity {
 
 	public void Hovered() {
 
+	}
+	public boolean getTargetable(){
+		return true;
+	}
+	public void attack(){
+		
 	}
 }

@@ -2,6 +2,7 @@ package com.spikerex.venture.entity.mob;
 
 import com.spikerex.venture.Main;
 import com.spikerex.venture.entity.Entity;
+import com.spikerex.venture.entity.clickable.ClickableEntity;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
 import com.spikerex.venture.input.Keyboard;
@@ -16,7 +17,7 @@ public class Player extends Mob {
 	private boolean goingto = false;
 
 	public int gotoX, gotoY;
-	private Entity target = null;
+	private ClickableEntity target = null;
 
 	public Player(Keyboard input, Mouse mouse) {
 		this.input = input;
@@ -28,15 +29,21 @@ public class Player extends Mob {
 		this.y = y;
 		this.input = input;
 	}
-	public void setTarget(Entity ent){
+
+	public void setTarget(ClickableEntity ent) {
 		this.target = ent;
 	}
+	int holding = 0;
 	public void update() {
 		if (mouse.getButton() != -1) {
-			
-			gotoLoc((this.x + mouse.getGX()) - Main.WIDTH / 2, (this.y + mouse.getGY()) - Main.HEIGHT / 2);
+			holding++;
+			if (target != null)
+				gotoLoc(target.x, target.y);
+			else
+				gotoLoc((this.x + mouse.getGX()) - Main.WIDTH / 2, (this.y + mouse.getGY()) - Main.HEIGHT / 2);
+		} else {
+			holding=0;
 		}
-		
 		int xa = 0, ya = 0;
 		if (anim < 7500)
 			anim++;
@@ -51,9 +58,10 @@ public class Player extends Mob {
 		if (input.right)
 			xa++;
 		walking = false;
-		if (xa != 0 && ya != 0)
+		if (xa != 0 && ya != 0) {
+			target = null;
 			goingto = false;
-
+		}
 		if (goingto) {
 			if (x > gotoX) {
 				xa = -1;
@@ -64,7 +72,10 @@ public class Player extends Mob {
 			} else if (y < gotoY) {
 				ya = 1;
 			} else {
+				if (target != null && holding <= 1)
+					target.attack();
 				goingto = false;
+				target = null;
 			}
 		}
 		if (xa != 0 || ya != 0) {
@@ -135,8 +146,9 @@ public class Player extends Mob {
 			}
 		}
 		screen.renderPlayer(xx, yy, this.sprite);
-		if(goingto){
-			screen.renderSprite(this.gotoX-4, this.gotoY-4, new Sprite(8,0xffffff),0.8f);
+		if (goingto) {
+			// screen.renderSprite(this.gotoX-4, this.gotoY-4, new
+			// Sprite(8,0xffffff),0.8f);
 
 		}
 	}
