@@ -161,10 +161,10 @@ public class Main extends Canvas implements Runnable {
 		int xScroll = player.x - screen.width / 2;
 		int yScroll = player.y - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
-		player.render(screen);
 		level.renderEntities(xScroll, yScroll,screen);
+		player.render(screen);
 		level.renderLast(xScroll, yScroll, screen);
-		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.GRAY, screen);
+		textSprite.print(10, 10,fps + " fps\n" +ups +" ups",Color.YELLOW, screen);
 		
 		for (int i = 0; i < (WIDTH*Scale) * (HEIGHT*Scale); i++) {
 			pixels[i] = screen.pixels[i];

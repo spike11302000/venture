@@ -38,7 +38,7 @@ public class Player extends Mob {
 		if (mouse.getButton() != -1) {
 			holding++;
 			if (target != null)
-				gotoLoc(target.x, target.y);
+				gotoLoc(target.x+(target.width/2), target.y+(target.height/2));
 			else
 				gotoLoc((this.x + mouse.getGX()) - Main.WIDTH / 2, (this.y + mouse.getGY()) - Main.HEIGHT / 2);
 		} else {

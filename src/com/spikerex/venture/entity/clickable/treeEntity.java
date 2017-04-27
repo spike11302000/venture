@@ -30,6 +30,7 @@ public class treeEntity extends ClickableEntity {
 		health--;
 	}
 	public void update(int tick) {
+		super.update(tick);
 		sh = (int)(Math.sin(tick)*(double)shake);
 		if(shake >0){
 			shake--;
@@ -40,8 +41,7 @@ public class treeEntity extends ClickableEntity {
 		if (this.isClicked) {
 			//remove();
 		}
-		if(health<0)
-			remove();
+		
 		
 	}
 }

@@ -26,7 +26,10 @@ public class ClickableEntity extends Entity {
 			screen.renderSpriteWhiten(this.x, this.y, this.sprite, .2f);
 		}
 	}
-
+	public void update(int tick){
+		if(health<0)
+			remove();
+	}
 	public void Clicked() {
 
 	}
@@ -38,6 +41,6 @@ public class ClickableEntity extends Entity {
 		return true;
 	}
 	public void attack(){
-		
+		health--;
 	}
 }

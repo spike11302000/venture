@@ -2,7 +2,7 @@ package com.spikerex.venture.level;
 
 import java.util.Random;
 
-import com.spikerex.venture.entity.clickable.treeEntity;
+import com.spikerex.venture.entity.clickable.*;
 import com.spikerex.venture.util.ImprovedNoise;
 
 public class PerlinLevel extends Level {
@@ -36,13 +36,16 @@ public class PerlinLevel extends Level {
 					if (random.nextInt(20) < 1) {
 						switch (random.nextInt(3)) {
 						case 0:
-							tile = "rock";
+							//tile = "rock";
+							add(new rockEntity(x * 16, y * 16));
 							break;
 						case 1:
-							tile = "red flower";
+							//tile = "red flower";
+							add(new redFlowerEntity(x * 16, y * 16));
 							break;
 						case 2:
-							tile = "yellow flower";
+							//tile = "yellow flower";
+							add(new yellowFlowerEntity(x * 16, y * 16));
 							break;
 						}
 					}

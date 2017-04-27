@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spikerex.venture.entity.Entity;
-import com.spikerex.venture.entity.clickable.ClickableEntity;
+import com.spikerex.venture.entity.clickable.*;
 import com.spikerex.venture.entity.mob.Player;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.input.Mouse;
@@ -14,9 +14,11 @@ public class Level {
 	protected int width, height;
 	protected int[] tiles;
 	public List<Entity> entities = new ArrayList<Entity>();
+	public List<Entity> toRender = new ArrayList<Entity>();
 	public Mouse mouse;
 	public int offsetX, offsetY;
 	public Player player;
+	Screen screen;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -48,6 +50,7 @@ public class Level {
 	public void update(int tick) {
 		// System.out.println(offsetX);
 		for (Entity ent : entities) {
+
 			if (ent.isRemoved()) {
 				remove(ent);
 				break;
@@ -59,22 +62,39 @@ public class Level {
 			if (ent instanceof ClickableEntity) {
 				((ClickableEntity) ent).isHoveded = false;
 				((ClickableEntity) ent).isClicked = false;
-				if ((ent.x - offsetX) < (mouse.getGX()) && (ent.x - offsetX + ent.width) > (mouse.getGX())
-						&& (ent.y - offsetY) - 16 < (mouse.getGY())
-						&& (ent.y - offsetY + ent.height) - 16 > (mouse.getGY())) {
-					if (mouse.getButton() != -1) {
-						player.setTarget((ClickableEntity)ent);
-						((ClickableEntity) ent).Clicked();
-						((ClickableEntity) ent).isClicked = true;
-						if (((ClickableEntity) ent).getTargetable())
-							player.setTarget((ClickableEntity)ent);
+				if (ent instanceof treeEntity) {
+					if ((ent.x - offsetX) < (mouse.getGX()) && (ent.x - offsetX + ent.width) > (mouse.getGX())
+							&& (ent.y - offsetY) - 16 < (mouse.getGY())
+							&& (ent.y - offsetY + ent.height) - 16 > (mouse.getGY())) {
+						if (mouse.getButton() != -1) {
+							player.setTarget((ClickableEntity) ent);
+							((ClickableEntity) ent).Clicked();
+							((ClickableEntity) ent).isClicked = true;
+							if (((ClickableEntity) ent).getTargetable())
+								player.setTarget((ClickableEntity) ent);
+
+						}
+						((ClickableEntity) ent).isHoveded = true;
+						((ClickableEntity) ent).Hovered();
 
 					}
-					((ClickableEntity) ent).isHoveded = true;
-					((ClickableEntity) ent).Hovered();
-					
+				} else {
+					if ((ent.x - offsetX) < (mouse.getGX()) && (ent.x - offsetX + ent.width) > (mouse.getGX())
+							&& (ent.y - offsetY) < (mouse.getGY())
+							&& (ent.y - offsetY + ent.height) > (mouse.getGY())) {
+						if (mouse.getButton() != -1) {
+							player.setTarget((ClickableEntity) ent);
+							((ClickableEntity) ent).Clicked();
+							((ClickableEntity) ent).isClicked = true;
+							if (((ClickableEntity) ent).getTargetable())
+								player.setTarget((ClickableEntity) ent);
 
+						}
+						((ClickableEntity) ent).isHoveded = true;
+						((ClickableEntity) ent).Hovered();
+					}
 				}
+
 			}
 		}
 	}
@@ -82,6 +102,7 @@ public class Level {
 	public void render(int xScroll, int yScroll, Screen screen) {
 		this.offsetX = xScroll;
 		this.offsetY = yScroll;
+		this.screen = screen;
 		screen.setOffset(xScroll, yScroll);
 		int x0 = xScroll >> 4;
 		int x1 = (xScroll + screen.width + 16) >> 4;
