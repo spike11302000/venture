@@ -14,6 +14,9 @@ public class SpriteSheet {
 	public static SpriteSheet player = new SpriteSheet("/textures/entitys/mobs/player.png",64);
 	public static SpriteSheet clickable = new SpriteSheet("/textures/entitys/clickable.png",128);
 	public static SpriteSheet charSheet = new SpriteSheet("/textures/ascii.png",128);
+	public static SpriteSheet ui = new SpriteSheet("/textures/ui.png",128);
+	public static SpriteSheet items = new SpriteSheet("/textures/items.png",128);
+	
 	public SpriteSheet(String path, int size) {
 		this.path = path;
 		this.SIZE = size;

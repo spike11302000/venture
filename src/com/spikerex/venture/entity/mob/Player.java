@@ -3,6 +3,11 @@ package com.spikerex.venture.entity.mob;
 import com.spikerex.venture.Main;
 import com.spikerex.venture.entity.Entity;
 import com.spikerex.venture.entity.clickable.ClickableEntity;
+import com.spikerex.venture.entity.item.Item;
+import com.spikerex.venture.entity.item.acronItem;
+import com.spikerex.venture.entity.item.logItem;
+import com.spikerex.venture.entity.item.redFlowerItem;
+import com.spikerex.venture.entity.item.yellowFlowerItem;
 import com.spikerex.venture.graphics.Screen;
 import com.spikerex.venture.graphics.Sprite;
 import com.spikerex.venture.input.Keyboard;
@@ -15,7 +20,7 @@ public class Player extends Mob {
 	private int anim = 0;
 	private boolean walking = false;
 	private boolean goingto = false;
-
+	public Item[] inventory = new Item[8];
 	public int gotoX, gotoY;
 	private ClickableEntity target = null;
 
@@ -28,6 +33,18 @@ public class Player extends Mob {
 		this.x = x;
 		this.y = y;
 		this.input = input;
+		for(int i=0;i<2;i++){
+			inventory[i] = new logItem(0,0);
+		}
+		for(int i=2;i<4;i++){
+			inventory[i] = new redFlowerItem(0,0);
+		}
+		for(int i=4;i<6;i++){
+			inventory[i] = new yellowFlowerItem(0,0);
+		}
+		for(int i=6;i<8;i++){
+			inventory[i] = new acronItem(0,0);
+		}
 	}
 
 	public void setTarget(ClickableEntity ent) {
@@ -150,6 +167,12 @@ public class Player extends Mob {
 			// screen.renderSprite(this.gotoX-4, this.gotoY-4, new
 			// Sprite(8,0xffffff),0.8f);
 
+		}
+		for(int i=0;i<8;i++){
+			screen.renderSprite(5+(16*i), screen.height-5-16, Sprite.uiHotBar, true);
+			Item itm = inventory[i];
+			if(itm != null)
+				screen.renderSprite(5+(16*i)+4, (screen.height-5-16)+4, itm.sprite, true);
 		}
 	}
 }

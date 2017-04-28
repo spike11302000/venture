@@ -14,7 +14,6 @@ public class Level {
 	protected int width, height;
 	protected int[] tiles;
 	public List<Entity> entities = new ArrayList<Entity>();
-	public List<Entity> toRender = new ArrayList<Entity>();
 	public Mouse mouse;
 	public int offsetX, offsetY;
 	public Player player;

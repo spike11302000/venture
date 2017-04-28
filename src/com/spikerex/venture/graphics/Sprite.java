@@ -47,6 +47,14 @@ public class Sprite {
 	
 	//Entity
 	public static Sprite testEntity = new Sprite(16,0xffff00);
+	//User Interface
+	public static Sprite uiHotBar = new Sprite(16,0,0,SpriteSheet.ui);
+	
+	//items
+	public static Sprite logItem = new Sprite(8,0,0,SpriteSheet.items);
+	public static Sprite redFlowerItem = new Sprite(8,1,0,SpriteSheet.items);
+	public static Sprite yellowFlowerItem = new Sprite(8,2,0,SpriteSheet.items);
+	public static Sprite acronItem = new Sprite(8,3,0,SpriteSheet.items);
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.SIZE = size;
 		pixels = new int[SIZE * SIZE];
