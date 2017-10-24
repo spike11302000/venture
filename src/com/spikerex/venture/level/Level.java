@@ -14,6 +14,7 @@ public class Level {
 	protected int width, height;
 	protected int[] tiles;
 	public List<Entity> entities = new ArrayList<Entity>();
+	protected float[] biome;
 	public Mouse mouse;
 	public int offsetX, offsetY;
 	public Player player;
@@ -23,6 +24,7 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		tiles = new int[width * height];
+		biome = new float[width * height];
 		generateLevel();
 	}
 
